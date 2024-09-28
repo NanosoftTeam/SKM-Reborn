@@ -10,12 +10,10 @@ def index():
 @app.route('/api/task', methods=["POST"])
 def tasks_store():
     try:
-        #Get and validate data
-        #print(request.form["content"])
-        name = request.form.get("name")
+        name = request.json.get("name")
         if not name:
             return jsonify({"status": "error", "message": "Task name is required"}), 400
-        content = request.form.get("content", None)
+        content = request.json.get("content", None)
         
         #Save data in database
         task = Task(name = name, content = content)
