@@ -8,9 +8,6 @@ ehthumbs.db
 # Linux
 *~
 
-# Local
-localtest/
-
 # Virtual environment, Environment variables
 venv/
 env/
