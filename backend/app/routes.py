@@ -7,7 +7,7 @@ from sqlalchemy.exc import SQLAlchemyError
 @app.route('/index')
 def index():
     return render_template('index.html')
-@app.route('/projects/store', methods=["POST"])
+@app.route('/api/task', methods=["POST"])
 def tasks_store():
     try:
         #Get and validate data

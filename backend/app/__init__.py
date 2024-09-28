@@ -4,7 +4,7 @@ import os
 app = Flask(__name__)
 
 
-
+#Database
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
