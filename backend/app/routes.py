@@ -7,7 +7,7 @@ from sqlalchemy.exc import SQLAlchemyError
 @app.route('/index')
 def index():
     return render_template('index.html')
-@app.route('/api/task', methods=["POST"])
+@app.route('/api/tasks', methods=["POST"])
 def tasks_store():
     try:
         name = request.json.get("name")
@@ -25,3 +25,6 @@ def tasks_store():
         return jsonify({"status": "error", "message": str(e)}), 500
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route('/api/tasks', methods=["GET"])
+def list_tasks(): return jsonify(Task.query.all())

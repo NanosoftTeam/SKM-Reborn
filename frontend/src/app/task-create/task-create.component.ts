@@ -24,7 +24,7 @@ export class TaskCreateComponent {
       // Here we should send login
       const taskData = this.newTaskForm.value;
       console.log('Form submitted: ', taskData);
-      this.http.post('http://127.0.0.1:5000/api/task', taskData)
+      this.http.post('http://127.0.0.1:5000/api/tasks', taskData)
         .subscribe(response => {
           console.log('Task successfully created:', response);
         }, error => {
