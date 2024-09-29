@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-task-create',
@@ -24,7 +25,7 @@ export class TaskCreateComponent {
       // Here we should send login
       const taskData = this.newTaskForm.value;
       console.log('Form submitted: ', taskData);
-      this.http.post('http://127.0.0.1:5000/api/tasks', taskData)
+      this.http.post(environment.apiUrl + '/api/tasks', taskData)
         .subscribe(response => {
           console.log('Task successfully created:', response);
         }, error => {
