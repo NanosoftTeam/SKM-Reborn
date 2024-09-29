@@ -9,6 +9,9 @@ on:
 jobs:
   deploy-frontend:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -22,9 +25,40 @@ jobs:
       run: npm install
 
     - name: Angular Build
-      run: ng build
+      run: npm run build
 
-    - uses: actions/upload-artifact@v4
+    - name: Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        path: /dist/
+        server: ${{ vars.ftp_server }}
+        username: ${{ vars.fftp_username }}
+        password: ${{ secrets.ftp_password }}
+        local-dir: ./frontend/dist/skm/browser/
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          update.php
+
+          
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
       
+    - name: Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ vars.ftp_server }}
+        username: ${{ vars.bftp_username }}
+        password: ${{ secrets.ftp_password }}
+        local-dir: ./backend/
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          passenger_wsgi.py
+          
+    - name: Run update on server
+      run: wget http://${{ vars.domain }}/update.php
