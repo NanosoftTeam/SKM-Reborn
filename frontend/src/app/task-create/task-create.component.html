@@ -1,0 +1,16 @@
+<div>
+    <h2>Create new task</h2>
+    <form [formGroup]="newTaskForm" (ngSubmit)="onSubmit()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" formControlName="name">
+        
+        <br>
+
+        <label for="content">Content:</label><br>
+        <textarea id="content" formControlName="content">The content of your task here</textarea>
+
+        <br>
+
+        <button type="submit" [disabled]="newTaskForm.invalid">Submit</button>
+      </form>
+</div>
